@@ -5,14 +5,14 @@ import MySQLdb
 import sys
 import os
 from datetime import datetime, date, timedelta
-import smtplib
-from email.mime.text import MIMEText
-from email.utils import formataddr
 
-root = os.path.dirname(os.path.realpath(__file__)) + '/..'
+workroot = os.path.dirname(os.path.realpath(__file__)) + '/../'
 
+sys.path.append(workroot + 'src')
 import simple_log as logger
-sys.path.append(root + "/" + "conf")
+import sendmail
+
+sys.path.append(workroot + "conf")
 import db_conf
 import log_conf
 import mail_conf
@@ -42,9 +42,9 @@ def search_data():
         logger.notice("Search data fail, no data in datebase by search key date = '" + yesterday +  "'")
         return
 
-def get_html():
+def build_html():
     data = search_data()
-    if data == None:
+    if data == None or len(data) == 0:
         return None
     cnt = len(data)
     disk_total = 0
@@ -107,12 +107,16 @@ def get_html():
     disk_space = str(round(disk_total / (cnt * 1024), 2)) + "GB"
     disk_used_space = str(round(disk_used_total / cnt, 2)) + "MB"
     disk_used_rate = str(round(disk_used_rate_total / cnt, 2)) + "%"
+    disk_used_max = str(disk_used_max) + "MB"
+    disk_used_min = str(disk_used_min) + "MB"
     cpu_core = '1核'
     cpu_load = str(round(cpu_load_total / cnt, 2))
     thread_count = str(thread_count_total / cnt)
     memory_space = str(round(memory_total / (cnt * 1024), 2)) + "GB"
     memory_used_space = str(round(memory_used_total / cnt, 2)) + "MB"
     memory_used_rate = str(round(memory_used_rate_total / cnt, 2)) + "%"
+    memory_used_max = str(memory_used_max) + "MB"
+    memory_used_min = str(memory_used_min) + "MB"
 
     return html_page.page.format(cpu_core, memory_space, disk_space, 
             cpu_load, cpu_load_max, cpu_load_max_time, cpu_load_min, cpu_load_min_time,
@@ -120,25 +124,8 @@ def get_html():
             memory_used_space, memory_used_max, memory_used_max_time, memory_used_min, memory_used_min_time,
             disk_used_space, disk_used_max, disk_used_max_time, disk_used_min, disk_used_min_time)
 
-def send_mail(page):
-    yesterday = (date.today() + timedelta(days = -1)).strftime("%Y-%m-%d")
-    msg = MIMEText(page, 'html', 'utf-8')
-    msg['From'] = formataddr(["server watcher", mail_conf.sender])
-    msg['To'] = formataddr(["XueYuan, He", mail_conf.receiver])
-    msg['Subject'] = yesterday + '服务器资源监控'
-
-    try:
-        server = smtplib.SMTP_SSL(mail_conf.host, mail_conf.host_port)
-        server.login(mail_conf.sender, mail_conf.passwd)
-        server.sendmail(mail_conf.sender, [mail_conf.receiver,], msg.as_string())
-        server.quit()
-        logger.notice("Send mail success.")
-    except Exception as e:
-        logger.error("Send mail fail." + str(e))
-        return
-
 if __name__ == '__main__':
-    logger.init(root + '/' + log_conf.log_path, log_conf.log_name, log_conf.log_level)
-    page = get_html()
+    logger.init(workroot + log_conf.log_path, log_conf.log_name, log_conf.log_level)
+    page = build_html()
     if page is not None:
-        send_mail(page)
+        sendmail.send_mail(page)
