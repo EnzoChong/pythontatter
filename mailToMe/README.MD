@@ -10,4 +10,4 @@
 
 * * *
 我当前使用该模块每天凌晨计算前一天的服务器资源使用情况并通过邮件发送到我的邮箱中，效果如下：
-![效果展示](https://github.com/hexueyuan/pythontatter/tree/master/mailToMe/.image/420AB037-22EB-4E0F-9591-2784B2957DA5.png)
+![效果展示](https://github.com/hexueyuan/pythontatter/blob/master/mailToMe/.image/420AB037-22EB-4E0F-9591-2784B2957DA5.png)
