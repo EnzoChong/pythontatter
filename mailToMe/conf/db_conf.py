@@ -1,0 +1,5 @@
+db_host = 'xxxx'
+db_user = 'xxxx'
+db_password = 'xxxx'
+db_database_name = 'xxxx'
+db_table_name = 'xxxx'
