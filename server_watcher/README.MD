@@ -30,10 +30,10 @@ cron使用可以参考百度或者谷歌资料，上边代码配置量每小时�
 
 * * *
 MySQL数据表属性：
-![087621759e94ffb422590f214872af68.png](evernotecid://2802695D-8393-4550-B6FB-97FCF5E4E13D/appyinxiangcom/17861192/ENResource/p91)
+![SQL表格配置属性](https://github.com/hexueyuan/pythontatter/blob/master/server_watcher/.image/E756BB39-04E9-4013-8EB1-8786ED97446D.png)
 按照该属性创建表，并配置好用户权限即可
 
 * * *
 效果：
-![0ed82120a96cf4f703556b3750ca2882.png](evernotecid://2802695D-8393-4550-B6FB-97FCF5E4E13D/appyinxiangcom/17861192/ENResource/p92)
+![效果展示](https://github.com/hexueyuan/pythontatter/blob/master/server_watcher/.image/EDADCE5B-B619-49A1-9A04-F9267F0FA88D.png)
 
