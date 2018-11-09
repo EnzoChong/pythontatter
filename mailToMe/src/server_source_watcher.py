@@ -127,5 +127,7 @@ def build_html():
 if __name__ == '__main__':
     logger.init(workroot + log_conf.log_path, log_conf.log_name, log_conf.log_level)
     page = build_html()
+    yesterday = (date.today() + timedelta(days = -1)).strftime("%Y-%m-%d")
+    subject = yesterday + '服务器资源监控'
     if page is not None:
-        sendmail.send_mail(page)
+        sendmail.send_mail(subject, page)

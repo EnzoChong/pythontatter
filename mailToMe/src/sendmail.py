@@ -17,7 +17,7 @@ import mail_conf as conf
 
 def send_mail(subject, content):
     msg = MIMEText(content, conf.content_type, conf.charset)
-    msg['From'] = formataddr([conf.send_name, conf.sender_addr])
+    msg['From'] = formataddr([conf.sender_name, conf.sender_addr])
     msg['To'] = formataddr([conf.receiver_name, conf.receiver_addr])
     msg['Subject'] = subject
 
