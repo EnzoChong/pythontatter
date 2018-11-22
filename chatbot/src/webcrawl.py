@@ -23,6 +23,8 @@ def get_image_url():
     req.add_header('Cookie', cookie)
     data = opener.open(req).read()
     items = json.loads(data)
+    if len(items) == 0:
+        return None
     image_item = random.choice(items)
     image_url = image_base_url + str(image_item['id'])
     return image_url
@@ -34,6 +36,8 @@ def get_image_url_with_content(content):
     req.add_header('Cookie', cookie)
     data = opener.open(req).read()
     items = json.loads(data)
+    if len(items) == 0:
+        return None
     image_item = random.choice(items)
     image_url = image_base_url + str(image_item['id'])
     return image_url
