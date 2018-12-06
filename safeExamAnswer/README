@@ -1,0 +1,12 @@
+# 简介
+用于获取安全知识考试答案，考虑到题目匹配度问题，正确率90%以上，因为部分判断题会返回选择题答案和选择题返回判断题答案
+
+# 使用方法
+python 2.7+
+依赖 BeautifulSoup库，使用`pip install pip install beautifulsoup4`下载即可
+
+使用chrome登录后进入考试页面，F12打开页面后获取考试的页面Cookie，格式是`wsess=xxxxxxxxx`样子的，执行
+```
+python get_answer.py wsess=xxxxxxxxxxx
+```
+终端下输出答案，linux||MAC下可以重定向到文件中，整个过程在获取答案阶段耗时较长，50道题总时间在3分钟左右输出答案.
